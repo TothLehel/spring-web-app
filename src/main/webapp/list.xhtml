@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:form="http://www.springframework.org/tags/form"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>User Registration</title>
+</h:head>
+<h:body>
+
+    <p:tabMenu activeIndex="#{param.i}" id="tabMen" >
+        <p:menuitem value="Registration" outcome="index"  >
+            <f:param name="i" value="0" />
+        </p:menuitem>
+        <p:menuitem value="List" outcome="list" >
+            <f:param name="i" value="1" />
+        </p:menuitem>
+        <p:menuitem value="Modify" outcome="modify" action="#{listController.clear}">
+            <f:param name="i" value="2" />
+        </p:menuitem>
+    </p:tabMenu>
+    <p:dataTable id="listTable" var="outputUser" value="#{listController.users}">
+        <p:column headerText="Username">
+            <h:outputText value="#{outputUser.username}"  />
+        </p:column>
+
+        <p:column headerText="First name">
+            <h:outputText value="#{outputUser.firstName}" />
+        </p:column>
+
+        <p:column headerText="Last name">
+            <h:outputText value="#{outputUser.lastName}" />
+        </p:column>
+
+        <p:column headerText="Zip code">
+            <p:outputLabel value="#{outputUser.zipCode}" />
+        </p:column>
+
+        <p:column headerText="City">
+            <h:outputText value="#{outputUser.city}" />
+        </p:column>
+
+        <p:column headerText="Street">
+            <h:outputText value="#{outputUser.street}" />
+        </p:column>
+
+        <p:column headerText="House number">
+            <h:outputText value="#{outputUser.houseNumber}" />
+        </p:column>
+
+        <p:column headerText="Floor">
+            <h:outputText value="#{outputUser.floor}" />
+        </p:column>
+
+        <p:column headerText="Door">
+            <h:outputText value="#{outputUser.door}" />
+        </p:column>
+
+        <p:column headerText="Mobile number">
+            <h:outputText value="#{outputUser.mobileNumber}" />
+        </p:column>
+
+        <p:column headerText="Home number">
+            <h:outputText value="#{outputUser.homeNumber}" />
+        </p:column>
+
+        <p:column headerText="Operations">
+            <h:form>
+                <p:commandButton value="edit" action="#{listController.modifyUser(outputUser)}" />
+            </h:form>
+            <h:form>
+                <p:commandButton value="delete" action="#{listController.deleteUser(outputUser)}" update=":listTable" />
+            </h:form>
+        </p:column>
+    </p:dataTable>
+</h:body>
+</html>

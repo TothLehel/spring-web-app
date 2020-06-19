@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="src:hibernate.cfg.xml" value="0a447741-625a-4fe9-a046-edfeb452e861" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/../../SpringApps/springTest/src/hibernate.cfg.xml" />
+      </configuration>
+    </facet>
+  </component>
+</module>
