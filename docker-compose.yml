@@ -1,6 +1,9 @@
 version: "3.7"
 
 services: 
+
+
+
         mysql-service:
                 container_name: mysql-service 
                 image: mysql:8
@@ -23,9 +26,6 @@ services:
                        - "8080:8080"
                 depends_on:
                         - mysql-service
-                volumes:
-                        - ./target/springTest.war:/usr/local/tomcat/webapps/springTest.war
-                        - ./target/springTest:/usr/local/tomcat/webapps/springTest
                 links:
                         - mysql-service:mysql-docker
 networks:

@@ -1,6 +1,11 @@
+FROM maven:3.3.9 as build
+WORKDIR /app
+COPY . .
+RUN mvn	package
+
 FROM tomcat:8
 MAINTAINER toth_lehel
-COPY ./target/springTest.war /usr/local/tomcat/webapps/
+COPY --from=build /app/target/springTest.war /usr/local/tomcat/webapps/
 EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
