@@ -1,17 +1,21 @@
 package com.spring.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
-@Data
-@Component
+@Getter 
+@Setter
 @Entity
 public class User {
 

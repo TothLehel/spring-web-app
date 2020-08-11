@@ -188,9 +188,18 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
     </dependency>
-
-
+	
+	<!-- java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException hiba miatt -->
+	<dependency>
+	    <groupId>javax.xml.bind</groupId>
+	    <artifactId>jaxb-api</artifactId>
+	    <version>2.4.0-b180830.0359</version>
+	</dependency>
+  
+	
   </dependencies>
+  <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+	
 
   <build>
     <finalName>springTest</finalName>

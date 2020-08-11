@@ -1,15 +1,9 @@
 package com.spring.service;
 
-import com.spring.entity.User;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.transaction.Transactional;
 import java.util.List;
-@Transactional
+
+import com.spring.entity.User;
+
 public interface UserService {
 
     public List<User> findAll();

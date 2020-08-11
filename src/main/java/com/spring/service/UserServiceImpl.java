@@ -1,48 +1,50 @@
 package com.spring.service;
 
-import com.spring.entity.User;
-import com.spring.repository.UserRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.spring.entity.User;
+import com.spring.repository.UserRepository;
+
+
 @Service
-@NoArgsConstructor
 public class UserServiceImpl implements UserService {
 
+	@Autowired
     private UserRepository userRepository;
 
     @Override
+    @Transactional(readOnly=true,propagation=Propagation.SUPPORTS)
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
     @Override
+    @Transactional
     public void save(User user) {
         userRepository.save(user);
-        FacesContext.getCurrentInstance()
-                .addMessage("save",new FacesMessage(FacesMessage.SEVERITY_INFO,"User Saved!",null));
     }
 
     @Override
+    @Transactional(readOnly=true,propagation=Propagation.SUPPORTS)
     public User getUserById(String username) {
         Optional<User> usr = userRepository.findById(username);
         return usr.orElse(null);
     }
 
     @Override
+    @Transactional
     public void deleteById(String username) {
         userRepository.deleteById(username);
     }
 
     @Override
+    @Transactional(readOnly=true,propagation=Propagation.SUPPORTS)
     public boolean exists(String username){
         return userRepository.existsById(username);
     }

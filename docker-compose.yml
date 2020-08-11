@@ -1,0 +1,38 @@
+version: "3.7"
+
+services: 
+        mysql-service:
+                container_name: mysql-service 
+                image: mysql:8
+                networks:
+                        - backend
+                env_file:
+                        - ./dockerfiles/env/mysql-env.env 
+                ports:
+                        - "3306:3306"
+                volumes:
+                        - mysql-data:/var/lib/mysql     
+        web-service:
+                build: 
+                    context: ./
+                    dockerfile: ./dockerfiles/tomcat/tomcat-Dockerfile
+                image: tomcat-docker
+                networks:
+                       - backend
+                ports:
+                       - "8080:8080"
+                depends_on:
+                        - mysql-service
+                volumes:
+                        - ./target/springTest.war:/usr/local/tomcat/webapps/springTest.war
+                        - ./target/springTest:/usr/local/tomcat/webapps/springTest
+                links:
+                        - mysql-service:mysql-docker
+networks:
+        backend:
+                driver:
+                        bridge
+volumes:
+        mysql-data:
+
+        

@@ -1,17 +1,19 @@
 package com.spring.validation;
 
-import com.spring.entity.User;
-import com.spring.service.UserService;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import java.util.List;
 
-@NoArgsConstructor(onConstructor = @__(@Autowired))
-@ManagedBean
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
+import org.springframework.stereotype.Component;
+
+import com.spring.entity.User;
+import com.spring.service.UserService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
 public class UserValidationImpl implements UserValidation {
     //ezt a servicebe kéne átrakni
     @Override
@@ -25,6 +27,7 @@ public class UserValidationImpl implements UserValidation {
             catchExeptions(exception,user);
             return null;
         }
+        
         return user;
     }
     @Override
@@ -83,7 +86,7 @@ public class UserValidationImpl implements UserValidation {
                 facesContext.addMessage("form:homeNumber", facesMessage);
                 break;
             default:
-                exception.printStackTrace();
+                log.debug("ERROR while validation User {} Ex {}", user , exception);
         }
     }
 
