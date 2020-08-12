@@ -1,20 +1,22 @@
 version: "3.7"
 
 services: 
-
-
-
         mysql-service:
-                container_name: mysql-service 
+                container_name: mysql-service
                 image: mysql:8
                 networks:
                         - backend
                 env_file:
-                        - ./dockerfiles/env/mysql-env.env 
+                        - ./dockerfiles/env/mysql-env.env
+                environment:
+                        MYSQL_PASSWORD_FILE: /run/secrets/mysql-secret
+                        MYSQL_RANDOM_ROOT_PASSWORD: "yes" 
                 ports:
                         - "3306:3306"
                 volumes:
-                        - mysql-data:/var/lib/mysql     
+                        - mysql-data:/var/lib/mysql
+                secrets:
+                        - mysql-secret     
         web-service:
                 build: 
                     context: ./
@@ -28,10 +30,13 @@ services:
                         - mysql-service
                 links:
                         - mysql-service:mysql-docker
+secrets:
+       mysql-secret:
+                file: ./dockerfiles/env/mysql-secret.txt
 networks:
         backend:
                 driver:
-                        bridge
+                        overlay
 volumes:
         mysql-data:
 
