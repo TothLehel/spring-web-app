@@ -20,23 +20,34 @@ services:
         web-service:
                 build: 
                     context: ./
-                    dockerfile: ./dockerfiles/tomcat/tomcat-Dockerfile
+                    dockerfile: ./dockerfiles/tomcat/tomcat-Dockerfile.dockerfile
                 image: tomcat-docker
+                volumes:
+                        - ./target/springTest:/usr/local/tomcat/webapps/springTest
+                links:
+                        - mysql-service:mysql-docker
+
                 networks:
                        - backend
                 ports:
                        - "8080:8080"
+                       - "8000:8000"
                 depends_on:
                         - mysql-service
-                links:
-                        - mysql-service:mysql-docker
+                restart: always
+                healthcheck:
+                        test: ["CMD","crul", "-f", "http://localhost:8080/springTest" ]
+                        interval: 30s
+                        timeout: 10s
+                        retries: 3
+                        start_period: 40s
 secrets:
        mysql-secret:
                 file: ./dockerfiles/env/mysql-secret.txt
 networks:
         backend:
                 driver:
-                        overlay
+                        bridge
 volumes:
         mysql-data:
 
