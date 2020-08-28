@@ -19,14 +19,11 @@ services:
                         - mysql-secret     
         web-service:
                 build: 
-                    context: ./
-                    dockerfile: ./dockerfiles/tomcat/tomcat-Dockerfile.dockerfile
+                    context: ./dockerfiles/tomcat
+                    dockerfile: ./tomcat-Dockerfile.dockerfile
                 image: tomcat-docker
                 volumes:
                         - ./target/springTest:/usr/local/tomcat/webapps/springTest
-                links:
-                        - mysql-service:mysql-docker
-
                 networks:
                        - backend
                 ports:
